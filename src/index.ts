@@ -99,6 +99,11 @@ if (argv.dynamicToolsets) {
   enabledToolsets = enabledToolsets.filter((a) => a != 'all');
 }
 
+// If individual tools are specified, disable all toolsets to enable only specified tools
+if (enabledTools.length > 0) {
+  enabledToolsets = [];
+}
+
 const mcpOption = {
   useFields: useFields,
   maxTokens,
