@@ -12,6 +12,7 @@ type RegisterOptions = {
   toolsetGroup: ToolsetSource;
   prefix: string;
   onlyEnabled?: boolean;
+  enabledTools?: string[];
   handlerStrategy: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tool: ToolDefinition<any, any> | DynamicToolDefinition<any>
@@ -60,7 +61,7 @@ function registerToolsets({
   prefix,
   handlerStrategy,
   enabledTools,
-}: RegisterOptions & { enabledTools?: string[] }) {
+}: RegisterOptions) {
   for (const toolset of toolsetGroup.toolsets) {
     for (const tool of toolset.tools) {
       // Enable tool if:
