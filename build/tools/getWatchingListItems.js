@@ -1,0 +1,17 @@
+import { z } from 'zod';
+import { buildToolSchema } from '../types/tool.js';
+import { WatchingListItemSchema } from '../types/zod/backlogOutputDefinition.js';
+const getWatchingListItemsSchema = buildToolSchema((t) => ({
+    userId: z
+        .number()
+        .describe(t('TOOL_GET_WATCHING_LIST_ITEMS_USER_ID', 'User ID')),
+}));
+export const getWatchingListItemsTool = (backlog, { t }) => {
+    return {
+        name: 'get_watching_list_items',
+        description: t('TOOL_GET_WATCHING_LIST_ITEMS_DESCRIPTION', 'Returns list of watching items for a user'),
+        schema: z.object(getWatchingListItemsSchema(t)),
+        outputSchema: WatchingListItemSchema,
+        handler: async ({ userId }) => backlog.getWatchingListItems(userId),
+    };
+};
